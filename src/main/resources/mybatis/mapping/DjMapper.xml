@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.DjDAO">
+
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="DjEntity" resultType="int">
+		select count(*) from dj 
+		<where>
+		<if test="dname!=null">
+			and dname=#{dname}
+		</if>
+		<if test="djf!=0">
+			and djf=#{djf}
+		</if>
+		<if test="dmoneyBl!=0">
+			and dmoneyBl=#{dmoneyBl}
+		</if>
+		<if test="dzk!=0">
+			and dzk=#{dzk}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="DjEntity" resultType="DjEntity">
+		select * from dj order by did desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 修改等级名称 -->
+	<update id="updName" parameterType="DjEntity" >
+		update dj set dname=#{dname} where did=#{did}
+	</update>
+	
+	<!-- 修改等级积分 -->
+	<update id="updDjf" parameterType="DjEntity" >
+		update dj set djf=#{djf} where did=#{did}
+	</update>
+	
+	<!-- 修改兑换比例 -->
+	<update id="upddMoneyBl" parameterType="DjEntity" >
+		update dj set dmoneyBl=#{dmoneyBl} where did=#{did}
+	</update>
+	
+	<!-- 修改兑换折扣 -->
+	<update id="updDzk" parameterType="DjEntity" >
+		update dj set dzk=#{dzk} where did=#{did}
+	</update>
+	
+  
+</mapper>

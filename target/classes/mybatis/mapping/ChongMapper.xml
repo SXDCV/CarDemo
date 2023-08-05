@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.ChongDAO">
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="ChongEntity" resultType="ChongEntity">
+		select o.oid,r.rid,r.rcard,y.yid,y.ylessmoney,y.ytitle,o.omoney,o.osmoney,o.olastmoney,u.uid,u.uname,o.otime,o.oremark 
+		from chong o,member r,youhui y,userinfo u where o.rid=r.rid and o.yid=y.yid and o.uid=u.uid
+		 order by oid desc limit #{begin},#{pages}
+	</select>
+	
+	
+	
+</mapper>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.ServicetypeDAO">
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="ServicetypeEntity" resultType="int">
+		select count(*) from servicetype
+		<where>
+		<if test="sname!=null">
+			and sname=#{sname}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="ServicetypeEntity" resultType="ServicetypeEntity">
+		select * from servicetype order by sid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 修改类型名称 -->
+	<update id="updName" parameterType="ServicetypeEntity" >
+		update servicetype set sname=#{sname} where sid=#{sid}
+	</update>
+  
+</mapper>

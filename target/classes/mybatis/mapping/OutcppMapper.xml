@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.OutcppDAO">
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="OutcppEntity" resultType="OutcppEntity">
+		select w.wid,w.wname,w.wtel,c.cid,c.cname,f.fid,f.fname,f.foutprice,w.wcount,w.wtime,u.uid,u.uname from outcpp w,mytf f,userinfo u,cptype c
+		where w.fid=f.fid and w.uid=u.uid and f.cid=c.cid
+		order by wid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 消费记录 -->
+	<select id="getcp" parameterType="OutcppEntity" resultType="OutcppEntity">
+		select w.wid,w.wname,w.wtel,c.cid,c.cname,f.fid,f.fname,f.foutprice,w.wcount,w.wtime,u.uid,u.uname from outcpp w,mytf f,userinfo u,cptype c
+		where w.fid=f.fid and w.uid=u.uid and f.cid=c.cid and f.fid=#{fid}
+		order by wid desc limit #{begin},#{pages}
+	</select>
+	
+	
+	<!-- 统计出库条数 -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from outcpp where fid=#{fid}
+	</select>
+ 
+</mapper>

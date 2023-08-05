@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.GetcpDAO">
+
+	<!-- 统计条数 -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from getcp where fid=#{fid}
+	</select>
+	
+	<!-- 查询入库记录 -->
+	<select id="cpOne" parameterType="GetcpEntity" resultType="GetcpEntity">
+		select g.gid,f.fid,f.fname,c.cid,c.cname,g.gcount,g.gtime,u.uid,u.uname
+		from getcp g,mytf f,userinfo u, cptype c
+		where g.fid=f.fid and g.uid=u.uid and f.cid=c.cid and f.fid=#{fid} order by fid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 条件查询 -->
+	<select id="getcpOne" parameterType="int" resultType="OutcpEntity">
+		select t.tid,r.rid,f.fid,t.tcount,u.uid,u.uname,t.ttime,t.tflag,r.rcard,r.rname,c.cid,c.cname,d.did,d.dname,d.dzk,f.fname,f.fdw,f.fcount,f.foutprice
+		from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did and t.tflag=1 and f.fid=#{fid}
+	</select>
+	
+	<!-- 统计出库条数 -->
+	<select id="getcount" parameterType="int" resultType="int">
+		select count(*) from outcp where fid=#{fid}
+	</select>
+	
+	
+ 
+</mapper>

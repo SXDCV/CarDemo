@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script th:src="@{js/jquery-3.2.1.min.js}"></script>
+<link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+<script th:src="@{layer/layer.js}" type="text/javascript"></script>
+<script th:src="@{assets/laydate/laydate.js}" type="text/javascript"></script> 
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>       
+<script type="text/javascript" th:src="@{js/outcpp/outcppAdd.js}"></script>   
+<style type="text/css">
+	#myform{
+		font-size: 13px;
+		font-family: "微软雅黑";
+		margin-left: 20px;
+		padding: 20px;
+	}
+	
+	#btn{
+		font-size: 13px;
+		font-family: "微软雅黑";
+	}
+	.layui-form-label{
+		width: 120px;
+	
+	}
+	.layui-input-block{
+	width: 240px;
+	margin-left: 160px;
+	}
+</style>
+</head>
+<body>
+	<form id="myform" class="layui-form" action="" enctype="multipart/form-data">
+		<div class="layui-form-item">
+			<label class="layui-form-label">产品类型：</label>
+			<div class="layui-input-block" style="width: 250px;"  id="cd">
+				<select name="cid" id="cid" lay-filter="cid" >
+					<option value="0">--请选择产品类型--</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">产品名称：</label>
+			<div class="layui-input-block" style="width: 250px;"  id="fd">
+				<select name="fid" id="fid" lay-filter="fid" >
+					<option value="">--请选择产品名称--</option>
+				
+				</select>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">库存数量：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 250px;" name="fcount" id="fcount" readonly="readonly"
+					lay-verify="title" autocomplete="off" placeholder="请输入库存数量"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">出售价格：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 250px;" name="foutprice" id="foutprice" readonly="readonly"
+					lay-verify="title" autocomplete="off" placeholder="请输入出售价格"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">消费姓名：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 250px;" name="wname" id="wname" 
+					lay-verify="title" autocomplete="off" placeholder="请输入消费姓名"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">电话号码：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 250px;" name="wtel" id="wtel" 
+					lay-verify="title" autocomplete="off" placeholder="请输入电话号码"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">购买数量：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 250px;" name="wcount" id="wcount" 
+					lay-verify="title" autocomplete="off" placeholder="请输入购买数量"
+					class="layui-input">
+			</div>
+		</div>
+	</form>
+	<input style="margin-left: 200px;" type="button" id="btn" class="layui-btn" value="购买" />
+	
+</body>
+</html>

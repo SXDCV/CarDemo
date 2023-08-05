@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.CartypeDAO">
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="CartypeEntity" resultType="int">
+		select count(*) from cartype
+		<where>
+		<if test="aname!=null">
+			and aname=#{aname}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="CartypeEntity" resultType="CartypeEntity">
+		select * from cartype order by aid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 修改产品名称 -->
+	<update id="updName" parameterType="CartypeEntity" >
+		update cartype set aname=#{aname} where aid=#{aid}
+	</update>
+
+	
+ 
+</mapper>

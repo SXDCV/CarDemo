@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script th:src="@{js/jquery-3.2.1.min.js}"></script>
+<link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+<script th:src="@{layer/layer.js}" type="text/javascript"></script>
+<script th:src="@{assets/laydate/laydate.js}" type="text/javascript"></script> 
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>   
+<script type="text/javascript" th:src="@{js/getcp/getcpAdd.js}"></script>   
+<style type="text/css">
+	#myform{
+		padding: 30px;
+		
+	}
+</style>
+</head>
+<body>
+<div id="myform"  action="" >
+		<input type="hidden" id="fid1" th:value="${fid}">
+			<input type="hidden" name="fid" id="fid">
+		<div class="layui-form-item">
+			<label class="layui-form-label">产品名称：</label>
+			<div class="layui-input-block">
+				<input  type="text" style="width: 200px;" id="fname" lay-verify="title"  class="layui-input">
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">产品产地：</label>
+			<div class="layui-input-block">
+				<input  type="text" style="width: 200px;" id="faddress" lay-verify="title"  class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">入库数量：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 200px;" name="gcount" id="gcount" lay-verify="title" autocomplete="off" placeholder="请填写入库数量" class="layui-input">
+			</div>
+		</div>
+	</div>
+	<input style="margin-left: 140px;" type="button" id="btn" class="layui-btn" value="提交" />
+	
+</body>
+</html>

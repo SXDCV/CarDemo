@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.CarxlDAO">
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="CarxlEntity" resultType="int">
+		select count(*) from carxl
+		<where>
+		<if test="xname!=null">
+			and xname=#{xname}
+		</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="CarxlEntity" resultType="CarxlEntity">
+		select * from carxl x,cartype a where x.aid=a.aid order by xid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 查询单个 -->
+	<select id="getOne" parameterType="CarxlEntity" resultType="CarxlEntity">
+		select * from carxl x,cartype a where x.aid=a.aid and x.aid=#{aid}
+	</select>
+	
+	
+	
+	<!-- 修改产品名称 -->
+	<update id="updName" parameterType="CarxlEntity" >
+		update carxl set xname=#{xname} where xid=#{xid}
+	</update>
+	
+	<!-- 修改汽车品牌 -->
+	<update id="updAName" parameterType="CarxlEntity" >
+		update carxl set aid=#{aid} where xid=#{xid}
+	</update>
+	
+	<!--单个查询 -->
+	<select id="carxlOne" parameterType="int" resultType="CarxlEntity">
+		select * from carxl x,cartype a where x.aid=a.aid and x.xid=#{xid}
+	</select>
+
+	
+ 
+</mapper>

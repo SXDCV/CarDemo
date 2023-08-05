@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.OutcpDAO">
+	
+	<!-- 统计条数 -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did and t.tflag=0 and r.rid=#{rid}
+	</select>
+
+
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="OutcpEntity" resultType="OutcpEntity">
+		select t.tid,r.rid,f.fid,t.tcount,u.uid,u.uname,t.ttime,t.tflag,r.rcard,r.rname,c.cid,c.cname,d.did,d.dzk,f.fname,f.fdw,f.foutprice
+		from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did
+		order by tid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 条件查询 -->
+	<select id="getOutcp" parameterType="int" resultType="OutcpEntity">
+		select t.tid,r.rid,r.rmoney,f.fid,t.tcount,u.uid,u.uname,t.ttime,t.tflag,r.rcard,r.rname,c.cid,c.cname,d.did,d.dname,d.dzk,f.fname,f.fdw,f.foutprice
+		from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did and t.tflag=0 and r.rid=#{rid}
+	</select>
+	
+	<!-- 结算查询 -->
+	<select id="getBylPages" parameterType="OutcpEntity" resultType="OutcpEntity">
+		select t.tid,r.rid,r.rmoney,f.fid,t.tcount,u.uid,u.uname,t.ttime,t.tflag,r.rcard,r.rname,c.cid,c.cname,d.did,d.dzk,f.fname,f.fdw,f.foutprice
+		from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did and t.tflag=0 and r.rid=#{rid}
+		order by tid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 条件查询 -->
+	<select id="outcpOne" parameterType="int" resultType="OutcpEntity">
+		select t.tid,r.rid,f.fid,t.tcount,u.uid,u.uname,t.ttime,t.tflag,r.rcard,r.rname,c.cid,c.cname,d.did,d.dname,d.dzk,f.fname,f.fdw,f.fcount,f.foutprice
+		from outcp t,member r,mytf f,userinfo u,cptype c,dj d
+		where t.rid=r.rid and t.fid=f.fid and t.uid=u.uid and f.cid=c.cid and r.did=d.did and t.tflag=0 and t.tid=#{tid}
+	</select>
+	
+	<!-- 修改购买数量 -->
+	<update id="outcpUpd" parameterType="OutcpEntity">
+		update outcp set tcount=#{tcount} where tid=#{tid}
+	</update>
+	
+	<!-- 查询重复项 -->
+	<select id="getCkName" parameterType="OutcpEntity" resultType="int">
+		select count(*) from outcp where  rid=#{rid} and fid=#{fid} and tflag=0
+	</select>
+	
+	<!-- 增加购买数量 -->
+	<update id="addOutcp" parameterType="OutcpEntity">
+		update outcp set tcount=tcount+#{tcount} where tid=#{tid}
+	</update>
+	
+	<!-- 查询重复项 -->
+	<select id="getTid" parameterType="OutcpEntity" resultType="OutcpEntity">
+		select * from outcp where rid=#{rid} and fid=#{fid}
+	</select>
+	
+	<!-- 修改状态 -->
+	<update id="updFlag" parameterType="int">
+		update outcp set tflag=1 where tid=#{tid}
+	</update>
+	
+	
+	
+	
+	
+ 
+</mapper>

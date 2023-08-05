@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.LipinDAO">
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="LipinEntity" resultType="LipinEntity">
+		select nid,nname,nimg,njf,ncount,nncount from lipin order by nid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 查询重复项 -->
+	<select id="getCkName" parameterType="LipinEntity" resultType="int">
+		select count(*) from lipin 
+		<where>
+			<if test="nname!=null">
+				and nname=#{nname}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="lipinOne" parameterType="LipinEntity" resultType="LipinEntity">
+		select nid,nname,nimg,njf,ncount,nncount from lipin where nid=#{nid}
+	</select>
+	
+	<!-- 修改库存总量 -->
+	<update id="Updcount" parameterType="LipinEntity">
+		update lipin set nncount=nncount-#{nncount} where nid=#{nid}
+	</update>
+	
+ 
+</mapper>

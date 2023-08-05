@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.MytfDAO">
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="MytfEntity" resultType="int">
+		select count(*) from mytf where fname=#{fname} and cid=#{cid} and faddress=#{faddress}
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="MytfEntity" resultType="MytfEntity">
+		select f.fid,f.fname,c.cid,c.cname,f.fdw,f.faddress,f.foutprice,f.finprice,f.fimg,f.fcount 
+		from mytf f,cptype c where f.cid=c.cid order by fid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 条件查询 -->
+	<select id="mytfAll" parameterType="int" resultType="MytfEntity">
+		select f.fid,f.fname,c.cid,c.cname,f.fdw,f.faddress,f.foutprice,f.finprice,f.fimg,f.fcount 
+		from mytf f,cptype c where f.cid=c.cid and f.fid=#{fid}
+	</select>
+	
+	<!-- 修改 -->
+	<update id="mytfUpd" parameterType="MytfEntity">
+		update mytf set fname=#{fname},cid=#{cid},fdw=#{fdw},faddress=#{faddress},foutprice=#{foutprice},finprice=#{finprice},fimg=#{fimg} where fid=#{fid}
+	</update>
+	
+	<!-- 修改数量 -->
+	<update id="updFcount" parameterType="MytfEntity">
+		update mytf set fcount=fcount+#{fcount} where fid=#{fid}
+	</update>
+	
+	<!-- 根据类型查询 -->
+	<select id="mytfOne" parameterType="int" resultType="MytfEntity">
+		select f.fid,f.fname,c.cid,c.cname,f.fdw,f.faddress,f.foutprice,f.finprice,f.fimg,f.fcount 
+		from mytf f,cptype c where f.cid=c.cid and f.cid=#{cid}
+	</select>
+	
+	<!-- 修改数量 -->
+	<update id="FcountUpd" parameterType="MytfEntity">
+		update mytf set fcount=fcount-#{fcount} where fid=#{fid}
+	</update>
+	
+	
+
+	
+ 
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.DuihuanDAO">
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="DuihuanEntity" resultType="DuihuanEntity">
+		select hid,n.nid,n.nname,r.rid,r.rcard,r.rname,hcount,htime,u.uid,u.uname
+		from duihuan h,lipin n,member r,userinfo u
+		where h.nid=n.nid and h.rid=r.rid and h.uid=u.uid
+		order by hid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getAll" parameterType="DuihuanEntity" resultType="DuihuanEntity">
+		select hid,n.nid,n.nname,r.rid,r.rcard,r.rname,hcount,htime,u.uid,u.uname
+		from duihuan h,lipin n,member r,userinfo u
+		where h.nid=n.nid and h.rid=r.rid and h.uid=u.uid and n.nid=#{nid}
+		order by hid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 统计条数 -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from duihuan where nid=#{nid}
+	</select>
+ 
+</mapper>

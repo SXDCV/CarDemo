@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script th:src="@{js/jquery-3.2.1.min.js}"></script>
+<link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+<script th:src="@{layer/layer.js}" type="text/javascript"></script>
+<script th:src="@{assets/laydate/laydate.js}" type="text/javascript"></script> 
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/layer/layer.js}"></script>           
+<script type="text/javascript" th:src="@{js/user/userUpd.js}"></script>   
+<style type="text/css">
+	.content{
+		padding:40px 20px 20px 0px;
+		margin:auto;
+	}
+	.label-one{
+		display:inline-block;
+		width: 95px;
+		height:30px;
+		line-height:20px;
+		font-size:13px;
+		text-align: right;
+	}
+	
+	.input-one{
+		width: 190px;
+		height:40px;
+		line-height:20px;
+		font-size:13px;
+		color:#555;
+		margin:0px 10px 30px 0px;
+		border:1px solid #ccc;
+	}
+	
+	.one{
+		width: 15px;
+		height: 15px;
+		margin-left: 25px;
+	}
+	
+</style>
+</head>
+
+<body>
+<form id="myform" class="layui-form" action="" enctype="multipart/form-data">
+	 <div class="content" th:object="${user}">
+	  <input type="hidden" id="uid" name="uid" th:value="*{uid}">
+	 <div class="layui-form-item">
+			<label class="layui-form-label">员工名称：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 190px;" name="uname" id="uname" th:value="*{uname}"
+					lay-verify="title" autocomplete="off" placeholder="请输入员工名称"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">员工密码：</label>
+			<div class="layui-input-block">
+			<input type="password" style="width: 190px;" name="upwd" id="upwd" th:value="*{upwd}"
+					lay-verify="title" autocomplete="off" placeholder="请输入员工密码"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">真实姓名：</label>
+			<div class="layui-input-block">
+			<input type="text" style="width: 190px;" name="username" id="username" th:value="*{username}"
+					lay-verify="title" autocomplete="off" placeholder="请输入真实姓名"
+					class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label" >性别：</label>
+			<div class="layui-input-inline">
+				 <select name="usex" id="usex">
+			     </select>
+			     <input type="hidden" id="sex"  th:value="*{usex}">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">电话：</label>
+			<div class="layui-input-block">
+				<input type="text" style="width: 190px;" name="utel" id="utel" th:value="*{utel}"
+					lay-verify="title" autocomplete="off" placeholder="请输入电话"
+					class="layui-input">
+			</div>
+		</div>
+		<input style="margin-left: 110px;" type="button" id="btn" class="layui-btn" value="提交" />
+	</div>
+</form>
+</body>
+</html>

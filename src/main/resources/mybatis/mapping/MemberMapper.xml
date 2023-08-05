@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.MemberDAO">
+	<!-- 查询是否重名 -->
+	<select id="getCkName" parameterType="MemberEntity" resultType="int">
+		select count(*) from member
+		<where>
+			<if test="rcard!=null">
+				and rcard=#{rcard}
+			</if>
+			<if test="rtel!=null">
+				and rtel=#{rtel}
+			</if>
+			<if test="rcarnum!=null">
+				and rcarnum=#{rcarnum}
+			</if>
+			<if test="rnum!=null">
+				and rnum=#{rnum}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="MemberEntity" resultType="MemberEntity">
+		select r.rid, r.rcard,r.rname,r.rpwd,r.rimg,rtel,r.rsex,d.did,d.dname,r.rbirthday,r.rstatus,r.rjf,r.rcarnum,x.xid,x.xname,x.aid,a.aname,r.rcolor, 
+		r.rway,z.zid,z.zname,r.rnum,r.raddress,r.rremark,r.rtime,r.rmoney
+		from member r,dj d,carxl x,pz z,cartype a where r.did=d.did and r.xid=x.xid and r.zid=z.zid and x.aid=a.aid
+		 order by rid desc limit #{begin},#{pages}
+	</select>
+	
+	<!-- 查询单个 -->
+	<select id="getOne" parameterType="MemberEntity" resultType="MemberEntity">
+		select r.rid, r.rcard,r.rname,r.rpwd,r.rimg,rtel,r.rsex,d.did,d.dname,r.rbirthday,r.rstatus,r.rjf,r.rcarnum,x.xid,x.xname,x.aid,a.aname,r.rcolor, 
+		r.rway,z.zid,z.zname,r.rnum,r.raddress,r.rremark,r.rtime,r.rmoney
+		from member r,dj d,carxl x,pz z,cartype a where r.did=d.did and r.xid=x.xid and r.zid=z.zid and x.aid=a.aid and r.rid=#{rid}
+		
+	</select>
+	
+	<!-- 查询单个 -->
+	<select id="getMemberOne" parameterType="MemberEntity" resultType="MemberEntity">
+		select r.rid, r.rcard,r.rname,r.rpwd,r.rimg,rtel,r.rsex,d.did,d.dname,r.rbirthday,r.rstatus,r.rjf,r.rcarnum,x.xid,x.xname,x.aid,a.aname,r.rcolor, 
+		r.rway,z.zid,z.zname,r.rnum,r.raddress,r.rremark,r.rtime,r.rmoney
+		from member r,dj d,carxl x,pz z,cartype a where r.did=d.did and r.xid=x.xid and r.zid=z.zid and x.aid=a.aid and r.rcard=#{rcard}
+		
+	</select>
+	
+	<!-- 修改余额 -->
+	<update id="updMoney" parameterType="MemberEntity">
+		update member set rmoney=rmoney+#{rmoney} where rid=#{rid}
+	</update>
+	
+	<!-- 修改余额 -->
+	<update id="MoneyUpd" parameterType="MemberEntity">
+		update member set rmoney=rmoney-#{rmoney} where rid=#{rid}
+	</update>
+	
+	<!-- 修改积分 -->
+	<update id="UpdJf" parameterType="MemberEntity">
+		update member set rjf=rjf+#{rjf} where rid=#{rid}
+	</update>
+	
+	<!-- 根据卡号查询信息 -->
+	<select id="getAll" parameterType="MemberEntity" resultType="MemberEntity">
+		select * from member where rcard=#{rcard}
+	</select>
+	
+	<!-- 修改积分 -->
+	<update id="JfUpd" parameterType="MemberEntity">
+		update member set rjf=#{rjf} where rid=#{rid}
+	</update>
+	
+	
+	<select id="getchart" resultType="MemberEntity">
+	select count(m.did) aid,d.dname,d.did 
+	from member m right outer join dj d on m.did = d.did group by m.did order by d.did;
+ 	</select>
+  	
+  	<select id="djall" resultType="MemberEntity" parameterType="int">
+  		select * from member m,dj d where m.did = d.did
+  		<if test="did!=0">
+  			 and d.did = #{did}
+  		</if>
+  		 order by rid desc limit #{begin},#{pages}
+  	</select>
+  
+  	<select id="djcount" resultType="int" parameterType="int">
+  		select count(*) from member where 1 = 1
+  		<if test="did!=0">
+  			and did = #{did}
+  		</if>
+  	</select>
+	
+	
+
+	
+ 
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.LookDAO">
+
+	<!-- 统计条数 -->
+	<select id="count" parameterType="LookEntity" resultType="int">
+		select count(*) from look k,member r,userinfo u
+		<where>
+			k.rid=r.rid and k.uid=u.uid
+			<if test="rcard!=null">
+				and r.rcard like concat(concat('%',#{rcard}),'%')
+			</if>
+			<if test="ktime!=null">
+				and ktime like concat(concat('%',#{ktime}),'%')
+			</if>
+		</where>
+	</select>
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="LookEntity" resultType="LookEntity">
+		select k.kid,r.rid,r.rcard,r.rname,r.rtel,ktime,kremark,u.uid,u.uname
+		from look k,member r,userinfo u
+		<where>
+			k.rid=r.rid and k.uid=u.uid
+			<if test="rcard!=null">
+				and r.rcard like concat(concat('%',#{rcard}),'%')
+			</if>
+			<if test="ktime!=null">
+				and ktime like concat(concat('%',#{ktime}),'%')
+			</if>
+		</where>
+		order by kid desc limit #{begin},#{pages}
+	</select>
+ 
+</mapper>

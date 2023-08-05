@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hu.dao.JiciDAO">
+	
+	<!-- 分页查询 -->
+	<select id="getByPages" parameterType="JiciEntity" resultType="JiciEntity">
+		select j.jid,r.rcard,r.rname,j.jtime,s.sid,s.sname,j.jmoney,u.uid,u.uname 
+		from jici j,member r,servicetype s,userinfo u
+		where j.rid=r.rid and j.sid=s.sid and j.uid=u.uid
+		order by jid desc limit #{begin},#{pages}
+	</select>
+ 
+</mapper>
